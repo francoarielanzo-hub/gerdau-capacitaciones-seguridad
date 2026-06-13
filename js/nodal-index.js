@@ -1,6 +1,16 @@
 (function () {
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const CX = 450, CY = 370, RADIUS = 255;
+  const CX = 450, CY = 360;
+
+  const POSITIONS = [
+    { x: 450, y: 120 },   // Bloqueo - arriba centro
+    { x: 700, y: 220 },   // Espacios Confinados - derecha arriba
+    { x: 780, y: 390 },   // Trabajo en Altura - derecha medio
+    { x: 680, y: 560 },   // APR - derecha abajo
+    { x: 220, y: 560 },   // EPP - izquierda abajo
+    { x: 120, y: 390 },   // Proteccion Auditiva - izquierda medio
+    { x: 200, y: 220 },   // Proteccion Respiratoria - izquierda arriba
+  ];
 
   function buildNodalMap() {
     const linesLayer = document.getElementById("lines-layer");
@@ -8,12 +18,10 @@
     if (!linesLayer || !nodesLayer) return;
 
     const modules = getStoredData("gerdau-modules", TRAINING_MODULES);
-    const total = modules.length;
 
     modules.forEach((mod, i) => {
-      const angle = (2 * Math.PI * i / total) - Math.PI / 2;
-      const nx = CX + RADIUS * Math.cos(angle);
-      const ny = CY + RADIUS * Math.sin(angle);
+      const pos = POSITIONS[i] || { x: CX, y: CY };
+      const nx = pos.x, ny = pos.y;
 
       const line = document.createElementNS(SVG_NS, "line");
       line.setAttribute("x1", CX); line.setAttribute("y1", CY);
@@ -30,11 +38,11 @@
       circle.setAttribute("r", 75);
       circle.setAttribute("fill", "#002855");
       circle.setAttribute("stroke", "#FFB800");
-      circle.setAttribute("stroke-width", "2.5");
+      circle.setAttribute("stroke-width", "3");
       circle.setAttribute("class", "node-circle");
 
       const icon = document.createElementNS(SVG_NS, "text");
-      icon.setAttribute("x", nx); icon.setAttribute("y", ny - 6);
+      icon.setAttribute("x", nx); icon.setAttribute("y", ny - 8);
       icon.setAttribute("text-anchor", "middle");
       icon.setAttribute("dominant-baseline", "middle");
       icon.setAttribute("font-size", "30");
@@ -47,7 +55,7 @@
 
       const lbl1 = document.createElementNS(SVG_NS, "text");
       lbl1.setAttribute("x", nx);
-      lbl1.setAttribute("y", line2 ? ny + 18 : ny + 22);
+      lbl1.setAttribute("y", line2 ? ny + 28 : ny + 32);
       lbl1.setAttribute("text-anchor", "middle");
       lbl1.setAttribute("font-family", "Inter,sans-serif");
       lbl1.setAttribute("font-weight", "700");
@@ -61,7 +69,7 @@
 
       if (line2) {
         const lbl2 = document.createElementNS(SVG_NS, "text");
-        lbl2.setAttribute("x", nx); lbl2.setAttribute("y", ny + 28);
+        lbl2.setAttribute("x", nx); lbl2.setAttribute("y", ny + 43);
         lbl2.setAttribute("text-anchor", "middle");
         lbl2.setAttribute("font-family", "Inter,sans-serif");
         lbl2.setAttribute("font-weight", "700");
