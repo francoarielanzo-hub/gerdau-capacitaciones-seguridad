@@ -3,10 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Centro de Capacitación – Gerdau Planta Ludueña</title>
+  <title>Capacitación Gerdau Argentina – Seguridad Industrial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    /* HERO GERDAU */
+    .hero {
+      background: linear-gradient(120deg, #003366 60%, #0055A5 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      min-height: 340px;
+      display: flex;
+      align-items: stretch;
+    }
+    .hero-left {
+      flex: 1;
+      padding: 56px 48px 56px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #FFB800;
+      margin-bottom: 18px;
+    }
+    .hero-title {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    .hero-title span {
+      color: #FFB800;
+    }
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+    .hero-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      max-width: 440px;
+      line-height: 1.7;
+    }
+    .hero-right {
+      width: 320px;
+      flex-shrink: 0;
+      background: #FFB800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-right-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #003366;
+      margin-bottom: 8px;
+    }
+    .hero-right-number {
+      font-size: 80px;
+      font-weight: 900;
+      color: #003366;
+      line-height: 1;
+      letter-spacing: -4px;
+    }
+    .hero-right-sub {
+      font-size: 13px;
+      font-weight: 700;
+      color: #003366;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .hero-stripes {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 200px;
+      opacity: 0.04;
+      background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 10px,
+        transparent 10px,
+        transparent 30px
+      );
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,14 +119,14 @@
     <div class="header-inner">
       <div class="logo-block">
         <div class="logo-svg">
-          <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Gerdau">
-            <rect width="80" height="36" rx="4" fill="#E30613"/>
-            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff" letter-spacing="1">GERDAU</text>
+          <svg viewBox="0 0 90 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="90" height="36" rx="4" fill="#FFB800"/>
+            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="17" fill="#003366" letter-spacing="1">GERDAU</text>
           </svg>
         </div>
         <div class="logo-text">
-          <span class="logo-title">Centro de Capacitación</span>
-          <span class="logo-sub">Planta Ludueña · Seguridad Industrial</span>
+          <span class="logo-title">Capacitación en Seguridad Industrial</span>
+          <span class="logo-sub">Gerdau Argentina</span>
         </div>
       </div>
       <nav class="header-nav">
@@ -34,37 +138,38 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <span class="hero-eyebrow">Planta Ludueña · Rosario</span>
-      <h1 class="hero-title">Capacitaciones de<br/><em>Seguridad Industrial</em></h1>
-      <p class="hero-desc">Seleccioná un módulo para acceder al material, videos, casos reales y evaluaciones.</p>
+    <div class="hero-stripes"></div>
+    <div class="hero-left">
+      <span class="hero-eyebrow">Gerdau Argentina · Seguridad Industrial</span>
+      <h1 class="hero-title">EL FUTURO<br/><span>QUE FORJAMOS</span><br/>ES SEGURO.</h1>
+      <p class="hero-subtitle">Plataforma de Capacitación Corporativa</p>
+      <p class="hero-desc">Accedé a todos los módulos de seguridad industrial desde cualquier lugar. Material actualizado, casos reales y evaluaciones en un solo lugar.</p>
     </div>
-    <div class="hero-accent"></div>
+    <div class="hero-right">
+      <div class="hero-right-label">Módulos</div>
+      <div class="hero-right-number" id="modules-count">12</div>
+      <div class="hero-right-sub">Capacitaciones</div>
+    </div>
   </section>
 
   <!-- NODAL MAP -->
   <section class="map-section">
     <div class="map-wrapper">
       <svg id="nodal-map" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-        <!-- Connection lines (drawn first, behind nodes) -->
-        <g id="lines-layer" stroke="#E30613" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35"></g>
-
-        <!-- Central node -->
+        <g id="lines-layer" stroke="#0055A5" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35"></g>
         <g id="center-node" class="center-group">
-          <circle cx="450" cy="350" r="72" fill="#1A1A2E" stroke="#E30613" stroke-width="3"/>
-          <circle cx="450" cy="350" r="60" fill="#1A1A2E" stroke="#E30613" stroke-width="1" opacity="0.4"/>
-          <text x="450" y="342" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="1">CAPACI-</text>
-          <text x="450" y="358" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="1">TACIONES</text>
-          <circle cx="450" cy="350" r="72" fill="transparent" stroke="#E30613" stroke-width="1.5" opacity="0" class="center-pulse"/>
+          <circle cx="450" cy="350" r="72" fill="#003366" stroke="#FFB800" stroke-width="3"/>
+          <circle cx="450" cy="350" r="60" fill="#003366" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
+          <text x="450" y="342" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#FFB800" letter-spacing="1">CAPACI-</text>
+          <text x="450" y="358" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#FFB800" letter-spacing="1">TACIONES</text>
+          <circle cx="450" cy="350" r="72" fill="transparent" stroke="#FFB800" stroke-width="1.5" opacity="0" class="center-pulse"/>
         </g>
-
-        <!-- Nodes rendered by JS -->
         <g id="nodes-layer"></g>
       </svg>
     </div>
   </section>
 
-  <!-- CARD GRID (alternative mobile/accessibility view) -->
+  <!-- CARD GRID -->
   <section class="grid-section">
     <h2 class="grid-title">Todos los módulos</h2>
     <div class="card-grid" id="card-grid"></div>
@@ -72,11 +177,19 @@
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <span>© Gerdau – Planta Ludueña · Área de Higiene y Seguridad</span>
+    <span>© Gerdau Argentina · Área de Higiene y Seguridad Industrial</span>
   </footer>
 
   <script src="js/data.js"></script>
   <script src="js/nodal.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // Update modules count in hero
+    document.addEventListener("DOMContentLoaded", function() {
+      const modules = getStoredData("gerdau-modules", TRAINING_MODULES);
+      const el = document.getElementById("modules-count");
+      if (el) el.textContent = modules.length;
+    });
+  </script>
 </body>
 </html>

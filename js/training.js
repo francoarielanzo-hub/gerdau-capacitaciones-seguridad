@@ -14,37 +14,43 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   });
 });
 
-// --- PPT Viewer ---
+// --- Visor de presentación (PDF embebido o PPTX) ---
 (function () {
   const fileInput = document.getElementById("ppt-file-input");
-  const frame = document.getElementById("ppt-frame");
+  const frameContainer = document.getElementById("ppt-frame");
   const placeholder = document.getElementById("ppt-placeholder");
   const toolbar = document.getElementById("ppt-toolbar");
   const replaceBtn = document.getElementById("ppt-replace-btn");
-
   const moduleId = document.body.dataset.moduleId;
-  const storedPpt = localStorage.getItem(`ppt-${moduleId}`);
 
-  // Restore PPT from storage (ObjectURL doesn't persist; show filename instead)
-  const storedPptName = localStorage.getItem(`ppt-name-${moduleId}`);
-  if (storedPptName) {
-    showPptInfo(storedPptName);
+  // Intentar restaurar PDF guardado en base64
+  const storedPdf = localStorage.getItem(`pdf-data-${moduleId}`);
+  const storedName = localStorage.getItem(`ppt-name-${moduleId}`);
+
+  if (storedPdf && storedName && storedName.endsWith(".pdf")) {
+    showPdfViewer(storedPdf, storedName);
+  } else if (storedName) {
+    showPptxInfo(storedName);
   }
 
-  function showPptInfo(name) {
+  function showPdfViewer(dataUrl, name) {
     if (placeholder) placeholder.style.display = "none";
     if (toolbar) toolbar.style.display = "flex";
-    // Show info text since ObjectURLs don't persist
-    if (frame) {
-      frame.style.display = "flex";
-      frame.style.alignItems = "center";
-      frame.style.justifyContent = "center";
-      frame.style.background = "#1a1a2e";
-      frame.style.color = "#9AA0AB";
-      frame.style.flexDirection = "column";
-      frame.style.gap = "12px";
-      frame.style.fontSize = "14px";
-      frame.innerHTML = `<div style="font-size:40px">📊</div><div style="font-weight:700;color:#fff">${name}</div><div>Archivo cargado · Para visualizar abrí el archivo en PowerPoint</div>`;
+    if (frameContainer) {
+      frameContainer.style.display = "block";
+      frameContainer.innerHTML = `<iframe src="${dataUrl}" style="width:100%;height:680px;border:none;display:block;"></iframe>`;
+    }
+    const label = document.getElementById("ppt-file-label");
+    if (label) label.textContent = "📄 " + name;
+  }
+
+  function showPptxInfo(name) {
+    if (placeholder) placeholder.style.display = "none";
+    if (toolbar) toolbar.style.display = "flex";
+    if (frameContainer) {
+      frameContainer.style.display = "flex";
+      frameContainer.style.cssText = "display:flex;align-items:center;justify-content:center;background:#1a1a2e;color:#9AA0AB;flex-direction:column;gap:12px;font-size:14px;height:300px;";
+      frameContainer.innerHTML = `<div style="font-size:40px">📊</div><div style="font-weight:700;color:#fff">${name}</div><div>Archivo .pptx cargado · Para visualizarlo en la app, convertilo a PDF primero</div>`;
     }
   }
 
@@ -53,8 +59,20 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
       const file = this.files[0];
       if (!file) return;
       localStorage.setItem(`ppt-name-${moduleId}`, file.name);
-      showPptInfo(file.name);
-      showToast("✅ Presentación cargada: " + file.name);
+
+      if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          localStorage.setItem(`pdf-data-${moduleId}`, e.target.result);
+          showPdfViewer(e.target.result, file.name);
+          showToast("✅ PDF cargado y visible en pantalla");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        localStorage.removeItem(`pdf-data-${moduleId}`);
+        showPptxInfo(file.name);
+        showToast("✅ Presentación registrada: " + file.name);
+      }
     });
   }
 
