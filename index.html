@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro de Capacitación – Gerdau Planta Ludueña</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-svg">
+          <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Gerdau">
+            <rect width="80" height="36" rx="4" fill="#E30613"/>
+            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="800" font-size="18" fill="#fff" letter-spacing="1">GERDAU</text>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Centro de Capacitación</span>
+          <span class="logo-sub">Planta Ludueña · Seguridad Industrial</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="admin.html" class="nav-link">Administrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Planta Ludueña · Rosario</span>
+      <h1 class="hero-title">Capacitaciones de<br/><em>Seguridad Industrial</em></h1>
+      <p class="hero-desc">Seleccioná un módulo para acceder al material, videos, casos reales y evaluaciones.</p>
+    </div>
+    <div class="hero-accent"></div>
+  </section>
+
+  <!-- NODAL MAP -->
+  <section class="map-section">
+    <div class="map-wrapper">
+      <svg id="nodal-map" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <!-- Connection lines (drawn first, behind nodes) -->
+        <g id="lines-layer" stroke="#E30613" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35"></g>
+
+        <!-- Central node -->
+        <g id="center-node" class="center-group">
+          <circle cx="450" cy="350" r="72" fill="#1A1A2E" stroke="#E30613" stroke-width="3"/>
+          <circle cx="450" cy="350" r="60" fill="#1A1A2E" stroke="#E30613" stroke-width="1" opacity="0.4"/>
+          <text x="450" y="342" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="1">CAPACI-</text>
+          <text x="450" y="358" text-anchor="middle" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="1">TACIONES</text>
+          <circle cx="450" cy="350" r="72" fill="transparent" stroke="#E30613" stroke-width="1.5" opacity="0" class="center-pulse"/>
+        </g>
+
+        <!-- Nodes rendered by JS -->
+        <g id="nodes-layer"></g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- CARD GRID (alternative mobile/accessibility view) -->
+  <section class="grid-section">
+    <h2 class="grid-title">Todos los módulos</h2>
+    <div class="card-grid" id="card-grid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span>© Gerdau – Planta Ludueña · Área de Higiene y Seguridad</span>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/nodal.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
