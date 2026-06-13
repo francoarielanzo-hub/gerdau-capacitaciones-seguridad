@@ -8,15 +8,41 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css"/>
   <style>
-    /* HERO GERDAU */
+    html, body { height: 100%; overflow: hidden; }
+
+    /* SLIDES */
+    .slides-container {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(30px);
+      overflow-y: auto;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    /* HERO SLIDE */
     .hero {
+      flex: 1;
       background: linear-gradient(120deg, #003366 60%, #0055A5 100%);
       position: relative;
       overflow: hidden;
-      padding: 0;
-      min-height: 340px;
       display: flex;
       align-items: stretch;
+      min-height: calc(100vh - 68px);
     }
     .hero-left {
       flex: 1;
@@ -28,13 +54,13 @@
       z-index: 2;
     }
     .hero-eyebrow {
-      display: inline-block;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #FFB800;
       margin-bottom: 18px;
+      display: block;
     }
     .hero-title {
       font-size: clamp(32px, 4vw, 56px);
@@ -45,15 +71,12 @@
       text-transform: uppercase;
       letter-spacing: -1px;
     }
-    .hero-title span {
-      color: #FFB800;
-    }
+    .hero-title span { color: #FFB800; }
     .hero-subtitle {
       font-size: 17px;
       font-weight: 600;
       color: rgba(255,255,255,0.75);
       margin-bottom: 32px;
-      letter-spacing: 0.5px;
     }
     .hero-desc {
       font-size: 14px;
@@ -62,7 +85,7 @@
       line-height: 1.7;
     }
     .hero-right {
-      width: 320px;
+      width: 300px;
       flex-shrink: 0;
       background: #FFB800;
       display: flex;
@@ -70,7 +93,6 @@
       align-items: center;
       justify-content: center;
       padding: 40px;
-      position: relative;
       clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
     }
     .hero-right-label {
@@ -101,21 +123,102 @@
       top: 0; right: 0; bottom: 0;
       width: 200px;
       opacity: 0.04;
-      background: repeating-linear-gradient(
-        45deg,
-        #fff,
-        #fff 10px,
-        transparent 10px,
-        transparent 30px
-      );
+      background: repeating-linear-gradient(45deg,#fff,#fff 10px,transparent 10px,transparent 30px);
       z-index: 1;
+    }
+
+    /* SLIDE 2 - MAPA */
+    .slide-map {
+      background: #003366;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 68px);
+      padding: 20px;
+    }
+    .slide-map-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #FFB800;
+      margin-bottom: 10px;
+    }
+
+    /* SLIDE 3 - GRILLA */
+    .slide-grid {
+      background: #F5F6F8;
+      flex: 1;
+      min-height: calc(100vh - 68px);
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    /* NAV ARROWS */
+    .slide-nav {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 200;
+      background: rgba(0,51,102,0.85);
+      padding: 10px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,184,0,0.3);
+    }
+    .slide-nav-btn {
+      background: #FFB800;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      color: #003366;
+      font-weight: 900;
+    }
+    .slide-nav-btn:hover { background: #fff; transform: scale(1.1); }
+    .slide-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+    .slide-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .slide-dot.active {
+      background: #FFB800;
+      width: 24px;
+      border-radius: 4px;
+    }
+    .slide-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      min-width: 120px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
+  <header class="site-header" style="position:fixed;top:0;left:0;right:0;z-index:100;">
     <div class="header-inner">
       <div class="logo-block">
         <div class="logo-svg">
@@ -136,58 +239,104 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-stripes"></div>
-    <div class="hero-left">
-      <span class="hero-eyebrow">Gerdau Argentina · Seguridad Industrial</span>
-      <h1 class="hero-title">EL FUTURO<br/><span>QUE FORJAMOS</span><br/>ES SEGURO.</h1>
-      <p class="hero-subtitle">Plataforma de Capacitación Corporativa</p>
-      <p class="hero-desc">Accedé a todos los módulos de seguridad industrial desde cualquier lugar. Material actualizado, casos reales y evaluaciones en un solo lugar.</p>
-    </div>
-    <div class="hero-right">
-      <div class="hero-right-label">Módulos</div>
-      <div class="hero-right-number" id="modules-count">12</div>
-      <div class="hero-right-sub">Capacitaciones</div>
-    </div>
-  </section>
+  <div style="height:68px;"></div>
 
-  <!-- NODAL MAP -->
-  <section class="map-section">
-    <div class="map-wrapper">
-      <svg id="nodal-map" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-        <g id="lines-layer" stroke="#0055A5" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35"></g>
-        <g id="center-node" class="center-group">
-          <circle cx="450" cy="350" r="72" fill="#003366" stroke="#FFB800" stroke-width="3"/>
-          <circle cx="450" cy="350" r="60" fill="#003366" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
-          <text x="450" y="342" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#FFB800" letter-spacing="1">CAPACI-</text>
-          <text x="450" y="358" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="12" fill="#FFB800" letter-spacing="1">TACIONES</text>
-          <circle cx="450" cy="350" r="72" fill="transparent" stroke="#FFB800" stroke-width="1.5" opacity="0" class="center-pulse"/>
-        </g>
-        <g id="nodes-layer"></g>
-      </svg>
+  <div class="slides-container">
+
+    <!-- SLIDE 1: HERO -->
+    <div class="slide active" id="slide-0">
+      <div class="hero">
+        <div class="hero-stripes"></div>
+        <div class="hero-left">
+          <span class="hero-eyebrow">Gerdau Argentina · Seguridad Industrial</span>
+          <h1 class="hero-title">EL FUTURO<br/><span>QUE FORJAMOS</span><br/>ES SEGURO.</h1>
+          <p class="hero-subtitle">Plataforma de Capacitación Corporativa</p>
+          <p class="hero-desc">Accedé a todos los módulos de seguridad industrial desde cualquier lugar. Material actualizado, casos reales y evaluaciones en un solo lugar.</p>
+        </div>
+        <div class="hero-right">
+          <div class="hero-right-label">Módulos</div>
+          <div class="hero-right-number" id="modules-count">7</div>
+          <div class="hero-right-sub">Capacitaciones</div>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- CARD GRID -->
-  <section class="grid-section">
-    <h2 class="grid-title">Todos los módulos</h2>
-    <div class="card-grid" id="card-grid"></div>
-  </section>
+    <!-- SLIDE 2: MAPA NODAL -->
+    <div class="slide" id="slide-1">
+      <div class="slide-map">
+        <div class="slide-map-title">Seleccioná una capacitación</div>
+        <svg id="nodal-map" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;max-height:calc(100vh - 180px);">
+          <g id="lines-layer" stroke="#FFB800" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.4"></g>
+          <g id="center-node">
+            <circle cx="400" cy="300" r="65" fill="#002855" stroke="#FFB800" stroke-width="3"/>
+            <circle cx="400" cy="300" r="53" fill="#002855" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
+            <text x="400" y="293" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11" fill="#FFB800" letter-spacing="1">CAPACI-</text>
+            <text x="400" y="309" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="11" fill="#FFB800" letter-spacing="1">TACIONES</text>
+            <circle cx="400" cy="300" r="65" fill="transparent" stroke="#FFB800" stroke-width="1.5" class="center-pulse"/>
+          </g>
+          <g id="nodes-layer"></g>
+        </svg>
+      </div>
+    </div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <span>© Gerdau Argentina · Área de Higiene y Seguridad Industrial</span>
-  </footer>
+    <!-- SLIDE 3: GRILLA -->
+    <div class="slide" id="slide-2">
+      <div class="slide-grid">
+        <h2 class="grid-title">Todos los módulos</h2>
+        <div class="card-grid" id="card-grid"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NAVEGACIÓN CON FLECHAS -->
+  <nav class="slide-nav">
+    <button class="slide-nav-btn" id="prev-btn" disabled>←</button>
+    <div class="slide-dots">
+      <div class="slide-dot active" data-slide="0"></div>
+      <div class="slide-dot" data-slide="1"></div>
+      <div class="slide-dot" data-slide="2"></div>
+    </div>
+    <button class="slide-nav-btn" id="next-btn">→</button>
+  </nav>
+
+  <footer class="site-footer" style="position:fixed;bottom:0;left:0;right:0;display:none;"></footer>
 
   <script src="js/data.js"></script>
-  <script src="js/nodal.js"></script>
+  <script src="js/nodal-index.js"></script>
   <script src="js/main.js"></script>
   <script>
-    // Update modules count in hero
-    document.addEventListener("DOMContentLoaded", function() {
+    // Slide navigation
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slide-dot');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = n;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
+    nextBtn.addEventListener('click', () => { if (current < slides.length - 1) goTo(current + 1); });
+    dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.slide))));
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < slides.length - 1) goTo(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) goTo(current - 1); }
+    });
+
+    // Module count
+    document.addEventListener('DOMContentLoaded', function() {
       const modules = getStoredData("gerdau-modules", TRAINING_MODULES);
-      const el = document.getElementById("modules-count");
+      const el = document.getElementById('modules-count');
       if (el) el.textContent = modules.length;
     });
   </script>
