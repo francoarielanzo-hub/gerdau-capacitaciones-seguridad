@@ -8,9 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css"/>
   <style>
-    html, body { height: 100%; overflow: hidden; }
+    html, body { height: 100%; overflow: hidden; margin: 0; padding: 0; }
 
-    /* SLIDES */
     .slides-container {
       height: 100vh;
       overflow: hidden;
@@ -20,12 +19,10 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.5s ease, transform 0.5s ease;
-      transform: translateY(30px);
+      transform: translateY(20px);
       overflow-y: auto;
     }
     .slide.active {
@@ -34,200 +31,311 @@
       transform: translateY(0);
     }
 
-    /* HERO SLIDE */
+    /* ===== SLIDE 1: HERO ===== */
     .hero {
-      flex: 1;
-      background: linear-gradient(120deg, #003366 60%, #0055A5 100%);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: stretch;
-      min-height: calc(100vh - 68px);
-    }
-    .hero-left {
-      flex: 1;
-      padding: 56px 48px 56px 56px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #002855 0%, #003f8a 60%, #0055A5 100%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       position: relative;
-      z-index: 2;
+      overflow: hidden;
     }
+    .hero-stripe {
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 6px;
+      background: #FFB800;
+    }
+    .hero-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 80px 80px 40px;
+      gap: 60px;
+    }
+    .hero-left { flex: 1; }
     .hero-eyebrow {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: #FFB800;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
       display: block;
     }
     .hero-title {
-      font-size: clamp(32px, 4vw, 56px);
+      font-size: clamp(40px, 5vw, 72px);
       font-weight: 900;
       color: #fff;
-      line-height: 1.05;
-      margin-bottom: 8px;
+      line-height: 1.0;
+      margin-bottom: 16px;
       text-transform: uppercase;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
     }
-    .hero-title span { color: #FFB800; }
+    .hero-title span { color: #FFB800; display: block; }
     .hero-subtitle {
-      font-size: 17px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 32px;
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 48px;
+      line-height: 1.6;
+      max-width: 480px;
     }
-    .hero-desc {
-      font-size: 14px;
-      color: rgba(255,255,255,0.55);
-      max-width: 440px;
-      line-height: 1.7;
-    }
-    .hero-right {
-      width: 300px;
-      flex-shrink: 0;
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       background: #FFB800;
+      color: #002855;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 18px 36px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .hero-cta:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .hero-cta-arrow { font-size: 20px; }
+    .hero-right {
+      width: 280px;
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%);
+      gap: 16px;
     }
-    .hero-right-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #003366;
-      margin-bottom: 8px;
+    .hero-stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,184,0,0.3);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
     }
-    .hero-right-number {
-      font-size: 80px;
+    .hero-stat-num {
+      font-size: 64px;
       font-weight: 900;
-      color: #003366;
+      color: #FFB800;
       line-height: 1;
-      letter-spacing: -4px;
+      letter-spacing: -3px;
     }
-    .hero-right-sub {
-      font-size: 13px;
+    .hero-stat-label {
+      font-size: 12px;
       font-weight: 700;
-      color: #003366;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-top: 4px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
     }
-    .hero-stripes {
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 200px;
-      opacity: 0.04;
-      background: repeating-linear-gradient(45deg,#fff,#fff 10px,transparent 10px,transparent 30px);
-      z-index: 1;
+    .hero-bottom {
+      background: rgba(0,0,0,0.2);
+      padding: 20px 80px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .hero-bottom-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 600;
+    }
+    .hero-bottom-dot {
+      width: 8px; height: 8px;
+      background: #FFB800;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
-    /* SLIDE 2 - MAPA */
+    /* ===== SLIDE 2: MAPA NODAL ===== */
     .slide-map {
-      background: #003366;
-      flex: 1;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at center, #003f8a 0%, #002855 70%);
       display: flex;
       flex-direction: column;
+      padding-top: 68px;
+    }
+    .slide-map-header {
+      padding: 24px 48px 0;
+      display: flex;
       align-items: center;
-      justify-content: flex-start;
-      min-height: calc(100vh - 68px);
-      padding: 16px 20px 70px;
+      justify-content: space-between;
     }
     .slide-map-title {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       color: #FFB800;
-      margin-bottom: 6px;
-      margin-top: 12px;
-      align-self: flex-start;
-      padding-left: 40px;
     }
-
-    /* SLIDE 3 - GRILLA */
-    .slide-grid {
-      background: #F5F6F8;
+    .slide-map-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+    }
+    .map-svg-wrapper {
       flex: 1;
-      min-height: calc(100vh - 68px);
-      padding: 40px;
-      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px 80px;
+    }
+    #nodal-map {
+      width: 100%;
+      max-width: 900px;
+      height: calc(100vh - 200px);
     }
 
-    /* NAV ARROWS */
+    /* ===== SLIDE 3: GRILLA ===== */
+    .slide-grid-wrap {
+      min-height: 100vh;
+      background: #002855;
+      padding-top: 68px;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-grid-header {
+      padding: 28px 48px 0;
+      border-bottom: 1px solid rgba(255,184,0,0.2);
+      padding-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .slide-grid-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #FFB800;
+    }
+    .slide-grid-count {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 32px 48px 100px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .module-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,184,0,0.15);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: #FFB800;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s;
+    }
+    .module-card:hover {
+      background: rgba(255,184,0,0.08);
+      border-color: #FFB800;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .module-card:hover::before { transform: scaleX(1); }
+    .card-icon-wrap {
+      width: 56px; height: 56px;
+      background: rgba(255,184,0,0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .card-arrow {
+      font-size: 20px;
+      color: #FFB800;
+      margin-top: auto;
+      align-self: flex-end;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.22s;
+    }
+    .module-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ===== NAV ARROWS ===== */
     .slide-nav {
       position: fixed;
-      bottom: 32px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
       gap: 16px;
       z-index: 200;
-      background: rgba(0,51,102,0.85);
+      background: rgba(0,20,60,0.9);
       padding: 10px 20px;
       border-radius: 50px;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,184,0,0.3);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,184,0,0.25);
     }
     .slide-nav-btn {
       background: #FFB800;
       border: none;
-      width: 40px;
-      height: 40px;
+      width: 44px; height: 44px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
-      color: #003366;
+      color: #002855;
       font-weight: 900;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
     }
     .slide-nav-btn:hover { background: #fff; transform: scale(1.1); }
-    .slide-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
-    .slide-dots {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
+    .slide-nav-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+    .slide-dots { display: flex; gap: 8px; align-items: center; }
     .slide-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.25);
       cursor: pointer;
       transition: all 0.2s;
     }
-    .slide-dot.active {
-      background: #FFB800;
-      width: 24px;
-      border-radius: 4px;
-    }
-    .slide-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.6);
-      min-width: 120px;
-      text-align: center;
-    }
+    .slide-dot.active { background: #FFB800; width: 28px; border-radius: 4px; }
   </style>
 </head>
 <body>
 
+  <!-- HEADER FIJO -->
   <header class="site-header" style="position:fixed;top:0;left:0;right:0;z-index:100;">
     <div class="header-inner">
       <div class="logo-block">
         <div class="logo-svg">
           <svg viewBox="0 0 90 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="90" height="36" rx="4" fill="#FFB800"/>
-            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="17" fill="#003366" letter-spacing="1">GERDAU</text>
+            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="17" fill="#002855" letter-spacing="1">GERDAU</text>
           </svg>
         </div>
         <div class="logo-text">
@@ -249,17 +357,38 @@
     <!-- SLIDE 1: HERO -->
     <div class="slide active" id="slide-0">
       <div class="hero">
-        <div class="hero-stripes"></div>
-        <div class="hero-left">
-          <span class="hero-eyebrow">Gerdau Argentina · Seguridad Industrial</span>
-          <h1 class="hero-title">EL FUTURO<br/><span>QUE FORJAMOS</span><br/>ES SEGURO.</h1>
-          <p class="hero-subtitle">Plataforma de Capacitación Corporativa</p>
-          <p class="hero-desc">Accedé a todos los módulos de seguridad industrial desde cualquier lugar. Material actualizado, casos reales y evaluaciones en un solo lugar.</p>
+        <div class="hero-stripe"></div>
+        <div class="hero-body">
+          <div class="hero-left">
+            <span class="hero-eyebrow">Gerdau Argentina · Seguridad Industrial</span>
+            <h1 class="hero-title">
+              EL FUTURO
+              <span>QUE FORJAMOS</span>
+              ES SEGURO.
+            </h1>
+            <p class="hero-subtitle">Accedé a todos los módulos de capacitación desde cualquier lugar. Material actualizado, casos reales y evaluaciones en un solo lugar.</p>
+            <button class="hero-cta" id="hero-go-btn">
+              Ver Capacitaciones
+              <span class="hero-cta-arrow">→</span>
+            </button>
+          </div>
+          <div class="hero-right">
+            <div class="hero-stat">
+              <div class="hero-stat-num" id="modules-count">7</div>
+              <div class="hero-stat-label">Módulos activos</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" style="font-size:40px;">H&S</div>
+              <div class="hero-stat-label">Higiene y Seguridad</div>
+            </div>
+          </div>
         </div>
-        <div class="hero-right">
-          <div class="hero-right-label">Módulos</div>
-          <div class="hero-right-number" id="modules-count">7</div>
-          <div class="hero-right-sub">Capacitaciones</div>
+        <div class="hero-bottom">
+          <div class="hero-bottom-item"><div class="hero-bottom-dot"></div>Presentaciones PDF</div>
+          <div class="hero-bottom-item"><div class="hero-bottom-dot"></div>Videos</div>
+          <div class="hero-bottom-item"><div class="hero-bottom-dot"></div>Casos Reales de Planta</div>
+          <div class="hero-bottom-item"><div class="hero-bottom-dot"></div>Evaluaciones</div>
+          <div class="hero-bottom-item"><div class="hero-bottom-dot"></div>Registro de Asistencia</div>
         </div>
       </div>
     </div>
@@ -267,31 +396,45 @@
     <!-- SLIDE 2: MAPA NODAL -->
     <div class="slide" id="slide-1">
       <div class="slide-map">
-        <div class="slide-map-title">Seleccioná una capacitación</div>
-        <svg id="nodal-map" viewBox="0 0 900 720" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:calc(100vh - 120px);">
-          <g id="lines-layer" stroke="#FFB800" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.4"></g>
-          <g id="center-node">
-            <rect x="340" y="320" width="220" height="80" rx="16" fill="#002855" stroke="#FFB800" stroke-width="3"/>
-            <rect x="348" y="328" width="204" height="64" rx="12" fill="#002855" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
-            <text x="450" y="367" text-anchor="middle" font-family="Inter,sans-serif" font-weight="800" font-size="16" fill="#FFB800" letter-spacing="2">CAPACITACIONES</text>
-            <rect x="340" y="320" width="220" height="80" rx="16" fill="transparent" stroke="#FFB800" stroke-width="1.5" class="center-pulse"/>
-          </g>
-          <g id="nodes-layer"></g>
-        </svg>
+        <div class="slide-map-header">
+          <span class="slide-map-title">Seleccioná una capacitación</span>
+          <span class="slide-map-sub">Hacé clic en cualquier módulo para acceder</span>
+        </div>
+        <div class="map-svg-wrapper">
+          <svg id="nodal-map" viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <g id="lines-layer" stroke="#FFB800" stroke-width="1.5" stroke-dasharray="6,5" opacity="0.3"></g>
+            <g id="center-node">
+              <rect x="330" y="278" width="240" height="84" rx="18" fill="#002855" stroke="#FFB800" stroke-width="3"/>
+              <rect x="338" y="286" width="224" height="68" rx="13" fill="#002855" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
+              <text x="450" y="328" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="18" fill="#FFB800" letter-spacing="3">CAPACITACIONES</text>
+              <rect x="330" y="278" width="240" height="84" rx="18" fill="transparent" stroke="#FFB800" stroke-width="1" class="center-pulse"/>
+            </g>
+            <g id="nodes-layer"></g>
+          </svg>
+        </div>
       </div>
     </div>
 
     <!-- SLIDE 3: GRILLA -->
     <div class="slide" id="slide-2">
-      <div class="slide-grid">
-        <h2 class="grid-title">Todos los módulos</h2>
+      <div class="slide-grid-wrap">
+        <div class="slide-grid-header">
+          <span class="slide-grid-title">Todos los módulos</span>
+          <span class="slide-grid-count" id="grid-count">7 capacitaciones disponibles</span>
+        </div>
         <div class="card-grid" id="card-grid"></div>
       </div>
     </div>
 
   </div>
 
-  <!-- NAVEGACIÓN CON FLECHAS -->
+  <!-- NAVEGACIÓN -->
   <nav class="slide-nav">
     <button class="slide-nav-btn" id="prev-btn" disabled>←</button>
     <div class="slide-dots">
@@ -301,8 +444,6 @@
     </div>
     <button class="slide-nav-btn" id="next-btn">→</button>
   </nav>
-
-  <footer class="site-footer" style="position:fixed;bottom:0;left:0;right:0;display:none;"></footer>
 
   <script src="js/data.js"></script>
   <script src="js/nodal-index.js"></script>
@@ -328,18 +469,19 @@
     prevBtn.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
     nextBtn.addEventListener('click', () => { if (current < slides.length - 1) goTo(current + 1); });
     dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.slide))));
+    document.getElementById('hero-go-btn')?.addEventListener('click', () => goTo(1));
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (current < slides.length - 1) goTo(current + 1); }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (current > 0) goTo(current - 1); }
     });
 
-    // Module count
     document.addEventListener('DOMContentLoaded', function() {
       const modules = getStoredData("gerdau-modules", TRAINING_MODULES);
       const el = document.getElementById('modules-count');
+      const gc = document.getElementById('grid-count');
       if (el) el.textContent = modules.length;
+      if (gc) gc.textContent = modules.length + ' capacitaciones disponibles';
     });
   </script>
 </body>
