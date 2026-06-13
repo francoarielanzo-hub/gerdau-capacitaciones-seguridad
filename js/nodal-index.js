@@ -1,6 +1,6 @@
 (function () {
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const CX = 400, CY = 300, RADIUS = 190;
+  const CX = 450, CY = 340, RADIUS = 230;
 
   function buildNodalMap() {
     const linesLayer = document.getElementById("lines-layer");
@@ -27,7 +27,7 @@
 
       const circle = document.createElementNS(SVG_NS, "circle");
       circle.setAttribute("cx", nx); circle.setAttribute("cy", ny);
-      circle.setAttribute("r", 48);
+      circle.setAttribute("r", 62);
       circle.setAttribute("fill", "#002855");
       circle.setAttribute("stroke", "#FFB800");
       circle.setAttribute("stroke-width", "2.5");
@@ -37,7 +37,7 @@
       icon.setAttribute("x", nx); icon.setAttribute("y", ny - 6);
       icon.setAttribute("text-anchor", "middle");
       icon.setAttribute("dominant-baseline", "middle");
-      icon.setAttribute("font-size", "20");
+      icon.setAttribute("font-size", "26");
       icon.textContent = mod.icon;
 
       const words = mod.name.split(" ");
@@ -51,7 +51,7 @@
       lbl1.setAttribute("text-anchor", "middle");
       lbl1.setAttribute("font-family", "Inter,sans-serif");
       lbl1.setAttribute("font-weight", "700");
-      lbl1.setAttribute("font-size", "8.5");
+      lbl1.setAttribute("font-size", "10");
       lbl1.setAttribute("fill", "#fff");
       lbl1.textContent = line1;
 
@@ -65,7 +65,7 @@
         lbl2.setAttribute("text-anchor", "middle");
         lbl2.setAttribute("font-family", "Inter,sans-serif");
         lbl2.setAttribute("font-weight", "700");
-        lbl2.setAttribute("font-size", "8.5");
+        lbl2.setAttribute("font-size", "10");
         lbl2.setAttribute("fill", "#fff");
         lbl2.textContent = line2;
         g.appendChild(lbl2);
