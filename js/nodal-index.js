@@ -1,6 +1,6 @@
 (function () {
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const CX = 450, CY = 340, RADIUS = 255;
+  const CX = 450, CY = 370, RADIUS = 255;
 
   function buildNodalMap() {
     const linesLayer = document.getElementById("lines-layer");
