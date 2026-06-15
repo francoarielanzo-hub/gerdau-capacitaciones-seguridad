@@ -1,3 +1,6 @@
+Ahora apretá **Ctrl + A** para seleccionar todo el texto, después borralo con **Delete** y pegá esto:Apretá **Ctrl + A** en el editor, borrá todo con **Delete** y pegá exactamente esto:
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -52,17 +55,9 @@
       <div class="tab-panel active" id="tab-presentacion">
         <div class="section-heading">Presentación</div>
         <div class="ppt-wrapper">
-          <div class="ppt-toolbar" id="ppt-toolbar" style="display:none;">
-            <span class="ppt-label">📄 Presentación cargada</span>
-            <button class="ppt-toolbar-btn" id="ppt-replace-btn">Reemplazar PDF</button>
+          <div id="ppt-frame" style="display:block;">
+            <iframe src="https://drive.google.com/file/d/1XhUUuiAxizLVNjyiOErsYcCuJFjLg_Tl/preview" style="width:100%;height:700px;border:none;" allowfullscreen></iframe>
           </div>
-          <div class="ppt-placeholder" id="ppt-placeholder">
-            <div class="ppt-placeholder-icon">📊</div>
-            <p>No hay presentación cargada</p>
-            <label for="ppt-file-input">Cargar PDF o PowerPoint</label>
-            <input type="file" id="ppt-file-input" accept=".pdf,.pptx,.ppt"/>
-          </div>
-          <div id="ppt-frame" style="display:none;"></div>
         </div>
       </div>
       <div class="tab-panel" id="tab-videos">
@@ -103,3 +98,6 @@
   <script src="../js/training.js"></script>
 </body>
 </html>
+```
+
+Después hacé clic en **Commit changes** arriba a la derecha.
