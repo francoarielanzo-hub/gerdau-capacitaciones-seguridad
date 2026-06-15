@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Administración – Gerdau Capacitaciones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-svg">
+          <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="80" height="36" rx="4" fill="#FFB800"/>
+            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="800" font-size="17" fill="#003366" letter-spacing="1">GERDAU</text>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Centro de Capacitación</span>
+          <span class="logo-sub">Planta Ludueña · Seguridad Industrial</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="admin.html" class="nav-link active">Administrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <div class="admin-header">
+      <h1>⚙️ Administración</h1>
+      <p>Gestioná los módulos de capacitación. Los cambios se guardan automáticamente en este navegador.</p>
+    </div>
+
+    <!-- Lista de módulos -->
+    <div class="admin-section">
+      <div class="admin-section-title">Módulos activos</div>
+      <div class="module-admin-list" id="module-admin-list"></div>
+
+      <!-- Agregar nuevo módulo -->
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--gray-200);">
+        <div class="admin-section-title" style="margin-bottom:16px;">Agregar nuevo módulo</div>
+        <div style="display:grid; grid-template-columns: 90px 1fr 200px auto; gap:12px; align-items:end;">
+          <div class="form-group">
+            <label class="form-label">Icono (emoji)</label>
+            <input class="form-input" id="new-icon" placeholder="🆕" maxlength="4"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre del módulo</label>
+            <input class="form-input" id="new-name" placeholder="Ej: Riesgo Eléctrico"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ID (sin espacios)</label>
+            <input class="form-input" id="new-id" placeholder="Ej: riesgo-electrico"/>
+          </div>
+          <button class="form-btn" id="add-module-btn">Agregar</button>
+        </div>
+        <div style="margin-top:10px;">
+          <div class="form-group">
+            <label class="form-label">Descripción breve</label>
+            <input class="form-input" id="new-desc" placeholder="Descripción del módulo para la pantalla principal"/>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--gray-400); margin-top:8px;">
+          ⚠️ Al agregar un módulo nuevo, también debés crear el archivo <code>capacitaciones/[id].html</code> copiando la plantilla de cualquier módulo existente.
+        </p>
+      </div>
+    </div>
+
+    <!-- Info técnica -->
+    <div class="admin-section">
+      <div class="admin-section-title">Estructura del proyecto</div>
+      <div style="background:var(--navy); border-radius:10px; padding:20px 24px; font-family:monospace; font-size:13px; color:#9AA0AB; line-height:1.9;">
+        <div style="color:#FFB800; font-weight:700; margin-bottom:8px;">gerdau-capacitaciones/</div>
+        <div>├── <span style="color:#fff;">index.html</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Pantalla principal</div>
+        <div>├── <span style="color:#fff;">admin.html</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Esta página</div>
+        <div>├── css/</div>
+        <div>│ &nbsp;&nbsp;└── <span style="color:#E30613;">main.css</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Todos los estilos</div>
+        <div>├── js/</div>
+        <div>│ &nbsp;&nbsp;├── <span style="color:#E30613;">data.js</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← ✏️ Editá aquí para agregar módulos</div>
+        <div>│ &nbsp;&nbsp;├── <span style="color:#E30613;">nodal.js</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Mapa interactivo</div>
+        <div>│ &nbsp;&nbsp;├── <span style="color:#E30613;">main.js</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Lógica pantalla principal</div>
+        <div>│ &nbsp;&nbsp;└── <span style="color:#E30613;">training.js</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Lógica páginas internas</div>
+        <div>├── capacitaciones/</div>
+        <div>│ &nbsp;&nbsp;├── espacios-confinados.html</div>
+        <div>│ &nbsp;&nbsp;├── proteccion-respiratoria.html</div>
+        <div>│ &nbsp;&nbsp;├── trabajo-altura.html</div>
+        <div>│ &nbsp;&nbsp;└── … (un archivo por módulo)</div>
+        <div>└── assets/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Imágenes, logos</div>
+      </div>
+    </div>
+
+    <!-- Resetear datos -->
+    <div class="admin-section">
+      <div class="admin-section-title">Herramientas</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="form-btn" id="export-btn" style="background:var(--navy);">
+          📤 Exportar configuración (JSON)
+        </button>
+        <button class="form-btn" id="reset-btn" style="background:#c0392b;">
+          🗑️ Resetear lista de módulos al original
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    let modules = getStoredData("gerdau-modules", TRAINING_MODULES);
+
+    function renderAdminList() {
+      const list = document.getElementById("module-admin-list");
+      list.innerHTML = "";
+      modules.forEach((mod, i) => {
+        const row = document.createElement("div");
+        row.className = "module-admin-row";
+        row.innerHTML = `
+          <span class="module-admin-icon">${mod.icon}</span>
+          <span class="module-admin-name">${mod.name}</span>
+          <span style="font-size:11px;color:var(--gray-400);flex:1;">${mod.id}</span>
+          <div class="module-admin-actions">
+            <a href="capacitaciones/${mod.id}.html" class="btn-sm btn-edit" target="_blank">Abrir →</a>
+            <button class="btn-sm btn-delete" data-index="${i}">Eliminar</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      list.querySelectorAll(".btn-delete").forEach(btn => {
+        btn.addEventListener("click", function () {
+          const idx = parseInt(this.dataset.index);
+          if (confirm(`¿Eliminar "${modules[idx].name}" de la lista?`)) {
+            modules.splice(idx, 1);
+            setStoredData("gerdau-modules", modules);
+            renderAdminList();
+            showToast("Módulo eliminado de la lista");
+          }
+        });
+      });
+    }
+
+    document.getElementById("add-module-btn").addEventListener("click", () => {
+      const icon = document.getElementById("new-icon").value.trim() || "📌";
+      const name = document.getElementById("new-name").value.trim();
+      const id   = document.getElementById("new-id").value.trim().toLowerCase().replace(/\s+/g, "-");
+      const desc = document.getElementById("new-desc").value.trim();
+      if (!name || !id) { showToast("⚠️ Completá nombre e ID"); return; }
+      if (modules.some(m => m.id === id)) { showToast("⚠️ Ya existe un módulo con ese ID"); return; }
+      modules.push({ id, name, icon, desc });
+      setStoredData("gerdau-modules", modules);
+      ["new-icon","new-name","new-id","new-desc"].forEach(el => document.getElementById(el).value = "");
+      renderAdminList();
+      showToast("✅ Módulo agregado. Recordá crear el HTML correspondiente.");
+    });
+
+    document.getElementById("export-btn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(modules, null, 2)], { type: "application/json" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+      a.download = "gerdau-modulos.json"; a.click();
+    });
+
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      if (confirm("¿Resetear la lista de módulos al estado original? Se perderán los módulos agregados desde acá.")) {
+        localStorage.removeItem("gerdau-modules");
+        modules = [...TRAINING_MODULES];
+        renderAdminList();
+        showToast("Lista reseteada al original");
+      }
+    });
+
+    function showToast(msg) {
+      let toast = document.getElementById("global-toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "global-toast";
+        toast.className = "toast";
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    renderAdminList();
+  </script>
+</body>
+</html>
