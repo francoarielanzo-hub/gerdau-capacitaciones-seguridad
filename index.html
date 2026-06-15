@@ -22,7 +22,7 @@
     /* ===== SLIDE 1: HERO ===== */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(120deg, #002855 60%, #003f8a 100%);
+      background: linear-gradient(120deg, #1e5fa8 60%, #2e7fd4 100%);
       display: flex; align-items: center;
       position: relative; overflow: hidden;
       padding: 80px 80px 80px;
@@ -50,7 +50,7 @@
     }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 12px;
-      background: #FFB800; color: #002855;
+      background: #FFB800; color: #1e5fa8;
       font-size: 15px; font-weight: 800;
       padding: 16px 32px; border-radius: 8px;
       border: none; cursor: pointer; font-family: 'Inter', sans-serif;
@@ -79,7 +79,7 @@
     /* ===== SLIDE 2: CATEGORÍAS ===== */
     .slide-cats {
       min-height: 100vh;
-      background: radial-gradient(ellipse at 30% 50%, #003f8a 0%, #002855 65%);
+      background: radial-gradient(ellipse at 30% 50%, #2e7fd4 0%, #1e5fa8 65%);
       padding-top: 68px; display: flex; flex-direction: column;
     }
     .slide-cats-header {
@@ -135,7 +135,7 @@
     /* ===== SLIDE 3: MÓDULOS DE CATEGORÍA ===== */
     .slide-modules {
       min-height: 100vh;
-      background: #002855;
+      background: #1e5fa8;
       padding-top: 68px; display: flex; flex-direction: column;
     }
     .slide-modules-header {
@@ -158,8 +158,9 @@
     .modules-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px; padding: 32px 56px 100px;
+      gap: 20px; padding: 32px 40px 100px 56px;
       overflow-y: auto; flex: 1;
+      scrollbar-gutter: stable;
     }
     .module-card {
       background: rgba(255,255,255,0.04);
@@ -192,7 +193,7 @@
       background: #FFB800; border: none; width: 44px; height: 44px;
       border-radius: 50%; cursor: pointer; font-size: 18px;
       display: flex; align-items: center; justify-content: center;
-      color: #002855; font-weight: 900; font-family: 'Inter', sans-serif;
+      color: #1e5fa8; font-weight: 900; font-family: 'Inter', sans-serif;
       transition: all 0.2s;
     }
     .slide-nav-btn:hover { background: #fff; transform: scale(1.1); }
@@ -210,7 +211,7 @@
         <div class="logo-svg">
           <svg viewBox="0 0 90 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="90" height="36" rx="4" fill="#FFB800"/>
-            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="17" fill="#002855" letter-spacing="1">GERDAU</text>
+            <text x="8" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="17" fill="#1e5fa8" letter-spacing="1">GERDAU</text>
           </svg>
         </div>
         <div class="logo-text">

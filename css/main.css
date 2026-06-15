@@ -3,8 +3,8 @@
    ======================================== */
 
 :root {
-  --blue:      #002855;
-  --blue-mid:  #0055A5;
+  --blue:      #1e5fa8;
+  --blue-mid:  #2e7fd4;
   --gold:      #FFB800;
   --gold-dark: #CC9200;
   --white:     #FFFFFF;
@@ -12,7 +12,7 @@
   --gray-200:  #E8EAED;
   --gray-400:  #9AA0AB;
   --gray-700:  #3D4450;
-  --text:      #002855;
+  --text:      #1e5fa8;
   --radius:    14px;
   --shadow:    0 4px 24px rgba(0,0,0,0.08);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
