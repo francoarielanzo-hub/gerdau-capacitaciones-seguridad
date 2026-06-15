@@ -38,7 +38,7 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
     if (toolbar) toolbar.style.display = "flex";
     if (frameContainer) {
       frameContainer.style.display = "block";
-      frameContainer.innerHTML = `<iframe src="${dataUrl}" style="width:100%;height:680px;border:none;display:block;"></iframe>`;
+      frameContainer.innerHTML = `<object data="${dataUrl}" type="application/pdf" style="width:100%;height:680px;border:none;display:block;"><div style="padding:40px;text-align:center;font-size:14px;color:#666;">Tu navegador no puede mostrar el PDF en línea.<br><br><a href="${dataUrl}" download="${name}" style="background:#FFB800;color:#002855;padding:12px 24px;border-radius:8px;font-weight:800;text-decoration:none;">⬇ Descargar PDF</a></div></object>`;
     }
     const label = document.getElementById("ppt-file-label");
     if (label) label.textContent = "📄 " + name;
