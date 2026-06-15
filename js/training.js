@@ -36,12 +36,44 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   function showPdfViewer(dataUrl, name) {
     if (placeholder) placeholder.style.display = "none";
     if (toolbar) toolbar.style.display = "flex";
-    if (frameContainer) {
-      frameContainer.style.display = "block";
-      frameContainer.innerHTML = `<object data="${dataUrl}" type="application/pdf" style="width:100%;height:680px;border:none;display:block;"><div style="padding:40px;text-align:center;font-size:14px;color:#666;">Tu navegador no puede mostrar el PDF en línea.<br><br><a href="${dataUrl}" download="${name}" style="background:#FFB800;color:#002855;padding:12px 24px;border-radius:8px;font-weight:800;text-decoration:none;">⬇ Descargar PDF</a></div></object>`;
-    }
+    if (!frameContainer) return;
+    frameContainer.style.display = "block";
+    frameContainer.innerHTML = `
+      <div id="pdf-canvas-container" style="width:100%;background:#525659;padding:16px;box-sizing:border-box;max-height:700px;overflow-y:auto;"></div>
+    `;
     const label = document.getElementById("ppt-file-label");
-    if (label) label.textContent = "📄 " + name;
+    if (label) label.textContent = "\u{1F4C4} " + name;
+
+    // Cargar PDF con PDF.js
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    script.onload = function() {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      pdfjsLib.getDocument(dataUrl).promise.then(function(pdf) {
+        const container = document.getElementById("pdf-canvas-container");
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          pdf.getPage(pageNum).then(function(page) {
+            const scale = (container.clientWidth - 32) / page.getViewport({scale:1}).width;
+            const viewport = page.getViewport({scale});
+            const canvas = document.createElement("canvas");
+            canvas.style.display = "block";
+            canvas.style.margin = "0 auto 12px";
+            canvas.style.boxShadow = "0 2px 8px rgba(0,0,0,0.4)";
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            container.appendChild(canvas);
+            page.render({canvasContext: canvas.getContext("2d"), viewport});
+          });
+        }
+      }).catch(function(err) {
+        const container = document.getElementById("pdf-canvas-container");
+        container.innerHTML = \`<div style="padding:40px;text-align:center;color:#fff;font-size:14px;">
+          \u26A0\uFE0F No se pudo cargar el PDF.<br><br>
+          <a href="${dataUrl}" download="${name}" style="background:#FFB800;color:#002855;padding:12px 24px;border-radius:8px;font-weight:800;text-decoration:none;">\u2B07 Descargar PDF</a>
+        </div>\`;
+      });
+    };
+    document.head.appendChild(script);
   }
 
   function showPptxInfo(name) {
