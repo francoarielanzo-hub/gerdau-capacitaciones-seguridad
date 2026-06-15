@@ -23,6 +23,43 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   const replaceBtn = document.getElementById("ppt-replace-btn");
   const moduleId = document.body.dataset.moduleId;
 
+  // Función para mostrar iframe de Google Drive o URL directa
+  function showUrlViewer(url) {
+    let embedUrl = url;
+    // Convertir link de Google Drive a embed
+    const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    if (driveMatch) {
+      embedUrl = `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+    }
+    if (placeholder) placeholder.style.display = "none";
+    if (toolbar) toolbar.style.display = "flex";
+    if (frameContainer) {
+      frameContainer.style.display = "block";
+      frameContainer.innerHTML = `<iframe src="${embedUrl}" style="width:100%;height:700px;border:none;display:block;" allowfullscreen></iframe>`;
+    }
+  }
+
+  // Botón cargar URL de Drive
+  const driveBtn = document.getElementById("drive-url-btn");
+  const driveInput = document.getElementById("drive-url-input");
+  if (driveBtn && driveInput) {
+    driveBtn.addEventListener("click", () => {
+      const url = driveInput.value.trim();
+      if (!url) return;
+      localStorage.setItem(`drive-url-${moduleId}`, url);
+      localStorage.removeItem(`pdf-data-${moduleId}`);
+    localStorage.removeItem(`drive-url-${moduleId}`);
+      localStorage.removeItem(`ppt-name-${moduleId}`);
+      showUrlViewer(url);
+    });
+  }
+
+  // Restaurar URL de Drive guardada
+  const storedDriveUrl = localStorage.getItem(`drive-url-${moduleId}`);
+  if (storedDriveUrl) {
+    showUrlViewer(storedDriveUrl);
+  }
+
   // Intentar restaurar PDF guardado en base64
   const storedPdf = localStorage.getItem(`pdf-data-${moduleId}`);
   const storedName = localStorage.getItem(`ppt-name-${moduleId}`);
@@ -102,6 +139,7 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
         reader.readAsDataURL(file);
       } else {
         localStorage.removeItem(`pdf-data-${moduleId}`);
+    localStorage.removeItem(`drive-url-${moduleId}`);
         showPptxInfo(file.name);
         showToast("✅ Presentación registrada: " + file.name);
       }
@@ -109,7 +147,15 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   }
 
   if (replaceBtn) {
-    replaceBtn.addEventListener("click", () => fileInput?.click());
+    replaceBtn.addEventListener("click", () => {
+    localStorage.removeItem(`pdf-data-${moduleId}`);
+    localStorage.removeItem(`drive-url-${moduleId}`);
+    localStorage.removeItem(`ppt-name-${moduleId}`);
+    if (frameContainer) frameContainer.innerHTML = "";
+    if (toolbar) toolbar.style.display = "none";
+    if (placeholder) placeholder.style.display = "";
+    fileInput?.click();
+  });
   }
 })();
 
